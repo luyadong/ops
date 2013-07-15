@@ -26,9 +26,18 @@ def manage(request):
 		    p.device.add(entry)
 		return HttpResponseRedirect("/project/list/")
 	else:
+<<<<<<< HEAD
 	    devices=Device.objects.all()
 	    pf=ProjectForm()
 	    return render_to_response('manage_project.html',{'pf':pf,'devices':devices},context_instance=RequestContext(request))
+=======
+	    years=range(1990,2050)
+	    months=range(1,13)
+	    days=range(1,32)
+	    devices=Device.objects.all()
+	    pf=ProjectForm()
+	    return render_to_response('manage_project.html',{'pf':pf,'devices':devices,'years':years,'months':months,'days':days},context_instance=RequestContext(request))
+>>>>>>> 014fd640e68a21181bf5e8af274e6b6b04baf351
     else:
 	return HttpResponseRedirect("/login/")
 
@@ -48,3 +57,15 @@ def search(request):
         return render_to_response('list_project.html', {'projects':projects}, context_instance=RequestContext(request))
     else:
 	return HttpResponseRedirect("/login/")
+<<<<<<< HEAD
+=======
+
+def every(request, proname):
+    user = request.user
+    if user.is_authenticated():
+	project = Project.objects.get(name=proname)
+	devices = project.device.all()
+	return render_to_response('info_project.html', {'project':project, 'devices':devices}, context_instance=RequestContext(request))
+    else:
+	return HttpResponseRedirect('/login/')
+>>>>>>> 014fd640e68a21181bf5e8af274e6b6b04baf351
