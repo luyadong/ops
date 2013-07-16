@@ -75,9 +75,6 @@
 		<tr><th colspan="8" style="background:#c5c5c5;">系统信息</th><tr>
 		<tr>
 		    <td class="center" style="background:#eee;">操作系统</td>
-<<<<<<< HEAD
-		    <td colspan="3" class="center">{{device.os}}</td>
-=======
 		    <td colspan="3" class="center">
                     {% if device.os == 'c' %}
                     Centos
@@ -91,7 +88,6 @@
 			{%endif%}
                     {% endif %}		    
 		    </td>
->>>>>>> 014fd640e68a21181bf5e8af274e6b6b04baf351
 		</tr>
 		<tr>
 		    <td class="center" style="background:#eee;">分区</td>
@@ -110,7 +106,6 @@
 		    <td colspan="3" class="center">{{device.disk}}</td>
 		</tr>
 		<tr>
-<<<<<<< HEAD
 		    <td class="center" style="background:#eee;">硬盘控制器</td>
 		    <td colspan="3" class="center">{{device.disk_controller}}</td>
 		</tr>
@@ -119,16 +114,6 @@
 		    <td class="center" style="background:#eee;">协议</td>
 		    <td class="center">{{device.protocol}}</td>
 		    <td class="center" style="background:#eee;">端口</td>
-=======
-		    <td class="center" style="background:#eee;">磁盘控制器</td>
-		    <td colspan="3" class="center">{{device.disk_controller}}</td>
-		</tr>
-		<tr><th colspan="8" style="background:#c5c5c5;">远程信息</th><tr>
-		<tr>
-		    <td class="center" style="background:#eee;">协议</td>
-		    <td class="center">{{device.protocol}}</td>
-		    <td class="center" style="background:#eee;">端口号</td>
->>>>>>> 014fd640e68a21181bf5e8af274e6b6b04baf351
 		    <td class="center">{{device.port}}</td>                                       
 		</tr>
 		<tr>

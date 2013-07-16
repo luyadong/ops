@@ -8,16 +8,12 @@ import datetime
 class DeviceForm(forms.ModelForm):
     class Meta:
         model = Device
-<<<<<<< HEAD
-    
+
 #    def clean_nei_ip(self):
 #	nei_ip = self.cleaned_data["nei_ip"]
 #	if Device.objects.filter(nei_ip = nei_ip.strip()):
 #	    raise forms.ValidationError("nei_ip repeat!!")
-	
-=======
 
->>>>>>> 014fd640e68a21181bf5e8af274e6b6b04baf351
 def manage(request):
     user = request.user
     if user.is_authenticated():
@@ -49,23 +45,12 @@ def manage(request):
 		port            = df.cleaned_data['port']
 		username        = df.cleaned_data['username']
 		password        = df.cleaned_data['password']
-<<<<<<< HEAD
 #		buy_date = "-".join(get_date.split('/')[::-1])
                 Device.objects.create(nei_ip=nei_ip, wai_ip=wai_ip, hostname=hostname, serial_number=serial_number, buy_date=buy_date, inventar_Nummer=inventar_Nummer, manufacturer=manufacturer, type=type, monitor=monitor, location=location, principal=principal, administrator=administrator, purpose=purpose, status=status, remarks=remarks, os=os, partion=partion, cpu=cpu, memory=memory, disk=disk, disk_controller=disk_controller, protocol=protocol, port=port, username=username, password=password)
 		return HttpResponseRedirect("/device/list/")
 	else:
 	    df=DeviceForm()
 	    return render_to_response('manage_device.html',{'df':df},context_instance=RequestContext(request))
-=======
-                Device.objects.create(nei_ip=nei_ip, wai_ip=wai_ip, hostname=hostname, serial_number=serial_number, buy_date=buy_date, inventar_Nummer=inventar_Nummer, manufacturer=manufacturer, type=type, monitor=monitor, location=location, principal=principal, administrator=administrator, purpose=purpose, status=status, remarks=remarks, os=os, partion=partion, cpu=cpu, memory=memory, disk=disk, disk_controller=disk_controller, protocol=protocol, port=port, username=username, password=password)
-		return HttpResponseRedirect("/device/list/")
-	else:
-	    years = [i for i in range(1990,2050)]
-	    months = [i for i in range(1,13)]
-	    days = [i for i in range(1,32)]
-	    df=DeviceForm()
-	    return render_to_response('manage_device.html',{'df':df, 'years':years, 'months':months, 'days':days},context_instance=RequestContext(request))
->>>>>>> 014fd640e68a21181bf5e8af274e6b6b04baf351
     else:
 	return HttpResponseRedirect("/login/")
 
