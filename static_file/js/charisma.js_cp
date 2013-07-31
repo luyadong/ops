@@ -91,51 +91,6 @@ $(document).ready(function(){
 	
 	//other things to do on document ready, seperated for ajax calls
 	docReady();
-
-
-
-	//add select change
-	$("#DataTables_Table_0_length select").bind('change',function(){
-	    var curr_page_length = $(this).val();
-	    window.location.href = '/project/list/?record='+curr_page_length
-	});
-
-	//device edit delete	
-	$("a.pro_del").bind('click',function(){
-	    if(confirm("确定要删除吗？")){
-		var curr_obj = $(this);
-		var proid = $(this).parent().parent().find("input[name=proid]").val();
-		$.get('/project/del/',{'proid':proid}, function(redata){
-		    if (redata == "ok"){
-			curr_obj.parent().parent().remove();
-		    }
-		}, "json");
-	    }
-	});
-
-	$("a.dev_edit").bind('click', function(){
-	    var devid = $(this).parent().parent().find("input[name=devid]").val();
-	    window.location.href = '/device/manage/?id=' + devid
-	});
-
-	//project edit delete
-	$("a.dev_del").bind('click',function(){
-	    if(confirm("确定要删除吗？")){
-		var curr_obj = $(this);
-		var devid = $(this).parent().parent().find("input[name=devid]").val();
-		$.get('/device/del/',{'devid':devid}, function(redata){
-		    if (redata == "ok"){
-			curr_obj.parent().parent().remove();
-		    }
-		}, "json");
-	    }
-	});
-    
-	$("a.pro_edit").bind('click', function(){
-	    var proid = $(this).parent().parent().find("input[name=proid]").val();
-	    window.location.href = '/project/manage/?id=' + proid
-	});
-	
 });
 		
 		
@@ -743,4 +698,3 @@ $.extend( $.fn.dataTableExt.oPagination, {
 		}
 	}
 });
-

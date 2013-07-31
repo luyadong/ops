@@ -122,6 +122,14 @@
 		    <td class="center" style="background:#eee;">密码</td>
 		    <td class="center">{{device.password}}</td>                                       
 		</tr>
+		<tr><th colspan="8" style="background:#c5c5c5;">主要服务</th><tr>
+		<tr>
+		    <td class="center" style="background:#eee;">服务名</td>
+		    <td class="center">
+		    {% for project in projects %}
+		    <a href="/project/list/{{ project.name }}"><h5>{{project.name}}({{ project.web }})</h5></a><br>
+		    {% endfor %}</td>
+		</tr>
 	  </table>
 	</div>
     </div><!--/span-->

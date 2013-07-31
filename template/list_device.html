@@ -18,7 +18,7 @@
 		</div>
 	    <div class="span8">
 		<div class="dataTables_filter">
-		    <form method="post" action="/device/search/">
+		    <form method="GET" action="/device/list/">
 		    <input type="text" name="search" id="search" aria-controls="DataTables_Table_0">
 		    <button type="submit" class="btn btn-primary">Search</button>
 		    </form>
@@ -32,6 +32,7 @@
     		      <th>公网ip</th>
     		      <th>主机名</th>
     		      <th>状态</th>                                          
+    		      <th>操作</th>                                          
     		  </tr>
     	      </thead>   
     	      <tbody>
@@ -41,24 +42,35 @@
     		    <td class="center">{{device.wai_ip}}</td>
     		    <td class="center">{{device.hostname}}</td>
     		    <td class="center">
+			{% if device.status == 'y' %}
     			<span class="label label-success">Active</span>
-    		    </td>                                       
+			{% else %}
+			<span class="label label-important">Unactive</span>
+			{% endif %}
+    		    </td>  
+                    <td class="center ">
+                        <a class="btn btn-info dev_edit"><i class="icon-edit icon-white"></i>Edit</a>
+                        <a class="btn btn-danger dev_del"><i class="icon-trash icon-white"></i>Delete</a>
+                    </td>
+                    <input type="hidden" name='devid' value="{{ device.id }}">                                     
     		</tr>
 		{%endfor%}
     	      </tbody>
     	 </table>  
     	 <div class="pagination pagination-centered">
     	  <ul>
-    	    <li><a href="#">Prev</a></li>
-    	    <li class="active">
-    	      <a href="#">1</a>
-    	    </li>
-    	    <li><a href="#">2</a></li>
-    	    <li><a href="#">3</a></li>
-    	    <li><a href="#">4</a></li>
-    	    <li><a href="#">Next</a></li>
+	    {% if devices.has_previous %}
+    	    <li><a href="?search={{ search }}&page={{ devices.previous_page_number }}">Prev</a></li>
+	    {% endif %}
+	    {% for number in page_list%}
+    	    <li><a href="?search={{ search }}&page={{ number }}">{{ number }}</a></li>
+	    {% endfor %}
+	    {% if devices.has_next %}
+    	    <li><a href="?search={{ search }}&page={{ devices.next_page_number }}">Next</a></li>
+	    {% endif %}
     	  </ul>
-    	</div>     
+    	</div>
+ 
         </div>
     </div><!--/span-->
 </div><!--row-->

@@ -18,7 +18,7 @@
 		</div>
 	    <div class="span8">
 		<div class="dataTables_filter" id="DataTables_Table_0_filter">
-		    <form method="POST" action="/project/search/">
+		    <form method="GET" action="/project/list/">
 		    <input type="text" name='search' id='search' aria-controls="DataTables_Table_0">
 		    <button type="submit" class="btn btn-primary">Search</button>
 		    </form>
@@ -31,8 +31,8 @@
     		      <th>项目名称：</th>
     		      <th>服务名：</th>
     		      <th>家目录</th>
-    		      <th>服务器IP：</th>                                          
     		      <th>状态：</th>                                          
+    		      <th>操作：</th>                                          
     		  </tr>
     	      </thead>   
     	      <tbody>
@@ -41,32 +41,38 @@
     		    <td><a href="/project/list/{{project.name}}">{{project.name}}</a></td>
     		    <td class="center">{{project.web}}</td>
     		    <td class="center">{{project.document}}</td>
-		    <td class="center">
-		    {%for device in project.device.all%}
-		    <a href="/device/list/{{device.nei_ip}}">{{device.nei_ip}}</a>,
-		    {%endfor%}
-		    </td>
     		    <td class="center">
+			{% if project.status == 'y' %}
     			<span class="label label-success">Active</span>
-    		    </td>                                       
+			{% else %}
+			<span class="label label-important">Unactive</span>
+			{% endif %}
+    		    </td>    
+                    <td class="center ">
+			<a class="btn btn-info pro_edit"><i class="icon-edit icon-white"></i>Edit</a>
+			<a class="btn btn-danger pro_del"><i class="icon-trash icon-white"></i>Delete</a>
+		    </td>                                   
+		    <input type="hidden" name='proid' value="{{ project.id }}">
     		</tr>
 		{%endfor%}
     	      </tbody>
     	 </table>  
     	 <div class="pagination pagination-centered">
     	  <ul>
-    	    <li><a href="#">Prev</a></li>
-    	    <li class="active">
-    	      <a href="#">1</a>
-    	    </li>
-    	    <li><a href="#">2</a></li>
-    	    <li><a href="#">3</a></li>
-    	    <li><a href="#">4</a></li>
-    	    <li><a href="#">Next</a></li>
+            {% if projects.has_previous %}
+            <li><a href="?search={{ search }}&page={{ projects.previous_page_number }}">Prev</a></li>
+            {% endif %}
+            {% for number in page_list%}
+            <li><a href="?search={{ search }}&page={{ number }}">{{ number }}</a></li>
+            {% endfor %}
+            {% if projects.has_next %}
+            <li><a href="?search={{ search }}&page={{ projects.next_page_number }}">Next</a></li>
+            {% endif %}
     	  </ul>
     	</div>     
         </div>
     </div><!--/span-->
 </div><!--row-->
-		
+
+
 {%endblock%}

@@ -1,6 +1,7 @@
 #!coding:utf-8
 from django.shortcuts import render_to_response, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django import forms
@@ -9,12 +10,10 @@ class LF(forms.Form):
     username = forms.CharField(label='用户名')
     password = forms.CharField(label='密码',widget=forms.PasswordInput)
 
+@login_required(login_url='/login/')
 def index(request):
     user = request.user
-    if user.is_authenticated():
-        return render_to_response('index.html', context_instance=RequestContext(request))
-    else:
-	return HttpResponseRedirect('/login/')
+    return render_to_response('index.html', context_instance=RequestContext(request))
 
 def user_login(request):
     if request.method == "POST":

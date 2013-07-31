@@ -9,22 +9,22 @@
 	<div>
 	  <table class="table table-bordered">
 		<tr>
-		    <td class="center" style="background:#eee;">项目名称</td>
+		    <td class="center" style="background:#eee;"><h5>项目名称</h5></td>
 		    <td class="center">{{project.name}}</td>
 		</tr>
 		<tr>
-		    <td class="center" style="background:#eee;">服务名称</td>
+		    <td class="center" style="background:#eee;"><h5>服务名称</h5></td>
 		    <td class="center">{{project.web}}</td>
 		</tr>
 		<tr>
-		    <td class="center" style="background:#eee;">家目录</td>
+		    <td class="center" style="background:#eee;"><h5>家目录</h5></td>
 		    <td class="center">{{project.document}}</td>
 		</tr>
 		<tr>
-		    <td class="center" style="background:#eee;">IP地址</td>
+		    <td class="center" style="background:#eee;"><h5>IP地址</h5></td>
 		    <td class="center" >
 		    {%for device in devices%}
-		    <a href="/device/list/{{device.nei_ip}}">{{device.nei_ip}}</a>
+		    <a href="/device/list/{{device.nei_ip}}">{{device.nei_ip}}</a><br>
 		    {%endfor%}
 		    </td>
 		</tr>

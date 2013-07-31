@@ -4,5 +4,7 @@ urlpatterns = patterns('',
     url(r'^manage/$', 'device.views.manage'),
     url(r'^list/$', 'device.views.list'),
     url(r'^list/(?P<nei_ip>.*)$', 'device.views.every'),
+    url(r'^del/$', 'device.views.delete'),
     url(r'^search/$', 'device.views.search'),
+    url(r'^update/$', 'device.views.update'),
 )

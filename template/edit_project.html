@@ -2,7 +2,7 @@
 {%extends 'base.html'%}
 
 {%block content%}
-<form class="box form-horizontal" method="post" action="/project/manage/">
+<form class="box form-horizontal" method="post" action="/project/update/">
     <div class="row-fluid sortable">
         <div class="span12">
             <div class="box-header well" data-original-title>
@@ -14,16 +14,35 @@
             <div class="box-content">
                 <table class="table-condensed">
                     <tr>
-                    <td><label class="control-label">域名：</label>{{pf.name}}</td>
+                    <td><label class="control-label">域名：</label>
+		    <input type="text" maxlength="50" value="{{ pro_edit.name }}" name="name" id="id_name">
+		    </td>
                     </tr>
                     <tr>
-                    <td><label class="control-label">状态：</label>{{pf.status}}</td>
+                    <td><label class="control-label">状态：</label>
+		    <select id="id_status" name="status">
+		    {% if pro_edit.status == "y" %}
+		    <option selected="selected" value="">活动</option>
+			<option value="y">活动</option>
+			<option value="n">非活动</option>
+		    </select>
+		    {% else %}
+		    <option selected="selected" value="">非活动</option>
+			<option value="y">活动</option>
+			<option value="n">非活动</option>
+		    </select>
+		    {% endif %}
+		    </td>
                     </tr>
                     <tr>
-                    <td><label class="control-label">web服务：</label>{{pf.web}}</td>
+                    <td><label class="control-label">web服务：</label>
+		    <input type="text" maxlength="50" value="{{ pro_edit.web }}" name="web" id="id_web">
+		    </td>
                     </tr>
                     <tr>
-                    <td><label class="control-label">家目录：</label>{{pf.document}}</td>
+                    <td><label class="control-label">家目录：</label>
+		    <input type="text" maxlength="50" value="{{ pro_edit.document }}" name="document" id="id_document">
+		    </td>
                     </tr>
                     <tr>
                     <td><label class="control-label">服务器ip：</label>
@@ -34,6 +53,7 @@
 		    </select>
 		    </td>
                     </tr>
+		    <tr><input type="hidden" value="{{ pro_edit.id }}" name="id"></tr>
                 </table>
             </div>
         </div><!--/span-->
