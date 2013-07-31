@@ -62,12 +62,13 @@ def manage(request):
 @login_required(login_url='/login/')
 def list(request):
     user = request.user
-    search = request.GET.get('search', 'NONE')
-    if search == "NONE":
-	device_list = Device.objects.order_by('nei_ip').all()
-    else:
+    search = request.GET.get('search', '')
+    record = request.GET.get('record','10')
+    if search:
 	device_list = Device.objects.order_by('nei_ip').filter(nei_ip__icontains=search)
-    paginator = Paginator(device_list, 10)
+    else:
+	device_list = Device.objects.order_by('nei_ip').all()
+    paginator = Paginator(device_list, record)
     page_list = paginator.page_range
     page = request.GET.get('page')
     try:
@@ -77,12 +78,12 @@ def list(request):
     except EmptyPage:
         devices = paginator.page(paginator.num_pages)
     
-    return render_to_response('list_device.html', {"devices": devices, "page_list":page_list, "search":search}, context_instance=RequestContext(request))
+    return render_to_response('list_device.html', {"devices": devices, "page_list":page_list, "search":search, "record":record}, context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
-def every(request,nei_ip):
+def every(request,id):
     user = request.user
-    device = Device.objects.get(nei_ip=nei_ip.strip())
+    device = Device.objects.get(id=id)
     projects = device.project_set.all()
     return render_to_response('info_device.html', {'device':device, 'projects':projects}, context_instance=RequestContext(request))
 
@@ -125,6 +126,6 @@ def update(request):
         username = request.POST.get('username','')
         password = request.POST.get('password','')
 	Device.objects.filter(id=id).update(nei_ip=nei_ip, wai_ip=wai_ip, hostname=hostname, serial_number=serial_number, buy_date=buy_date, inventar_Nummer=inventar_Nummer, manufacturer=manufacturer, type=type, monitor=monitor, location=location, principal=principal, administrator=administrator, purpose=purpose, status=status, remarks=remarks, os=os, partion=partion, cpu=cpu, memory=memory, disk=disk, disk_controller=disk_controller, protocol=protocol, port=port, username=username, password=password)
-	return HttpResponseRedirect('/device/list/' + nei_ip)
+	return HttpResponseRedirect('/device/list/' + id)
     else:
 	return HttpResponseRedirect('/static/error/404.html')

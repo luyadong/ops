@@ -22,14 +22,12 @@
                     <td><label class="control-label">状态：</label>
 		    <select id="id_status" name="status">
 		    {% if pro_edit.status == "y" %}
-		    <option selected="selected" value="">活动</option>
-			<option value="y">活动</option>
+		    <option selected="selected" value="y">活动</option>
 			<option value="n">非活动</option>
 		    </select>
 		    {% else %}
-		    <option selected="selected" value="">非活动</option>
+		    <option selected="selected" value="n">非活动</option>
 			<option value="y">活动</option>
-			<option value="n">非活动</option>
 		    </select>
 		    {% endif %}
 		    </td>
@@ -46,9 +44,9 @@
                     </tr>
                     <tr>
                     <td><label class="control-label">服务器ip：</label>
-		    <select multiple="multiple" name="device" id="id_device" data-rel="chosen">
+		    <select multiple="multiple" name="devices" id="id_device" data-rel="chosen">
 		    {%for device in devices%}
-		    <option value={{device.id}}>{{device.nei_ip}}</option>
+		    <option value={{ device.id }}>{{device.nei_ip}}</option>
 		    {%endfor%}
 		    </select>
 		    </td>

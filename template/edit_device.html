@@ -36,12 +36,12 @@
         	      <td><label class="control-label">是否监控：</label>
 			<select id="id_monitor" name="monitor">
 			  {% if dev_edit.monitor == "y" %}
-			  <option selected="selected" value="">是</option>
-			  {% else %}
-			  <option selected="selected" value="">否</option>
-			  {% endif %}
-			  <option value="y">是</option>
+			  <option selected="selected" value="y">是</option>
 			  <option value="n">否</option>
+			  {% else %}
+			  <option selected="selected" value="n">否</option>
+			  <option value="y">是</option>
+			  {% endif %}
 			</select></td>
         	      <td><label class="control-label">位置：</label><input type="text" maxlength="50" value="{{ dev_edit.location }}" name="location" id="id_location"></td>
 		    </tr>
@@ -54,12 +54,12 @@
         	      <td><label class="control-label">状态：</label>
 			<select id="id_status" name="status">
 			  {% if dev_edit.status == "y" %}
-                          <option selected="selected" value="">活动</option>
-			  {% else %}
-                          <option selected="selected" value="">非活动</option>
-			  {% endif %}
-                          <option value="y">活动</option>
+                          <option selected="selected" value="y">活动</option>
                           <option value="n">非活动</option>
+			  {% else %}
+                          <option selected="selected" value="n">非活动</option>
+                          <option value="y">活动</option>
+			  {% endif %}
                         </select>
 		      </td>
 		    </tr>
@@ -84,17 +84,17 @@
         		<div class="controls">
 			  <select id="id_os" name="os">
 			    {% if dev_edit.os == "c" %}
-                            <option selected="selected" value="">Centos</option>
+                            <option selected="selected" value="c">Centos</option>
                             <option value="w">Windows</option>
                             <option value="f">Fedora</option>
 			    {% else %}
 				{% if dev_edit.os == "w"%}
-				  <option selected="selected" value="">Windows</option>
+				  <option selected="selected" value="w">Windows</option>
 				  <option value="w">Centos</option>
 				  <option value="f">Fedora</option>
 				{% else %}
 				  {% if dev_edit.os == "f"%}
-				    <option selected="selected" value="">Fedora</option>
+				    <option selected="selected" value="f">Fedora</option>
 				    <option value="w">Centos</option>
 				    <option value="f">Windows</option>
 				  {% endif %}

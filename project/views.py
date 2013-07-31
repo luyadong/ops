@@ -15,7 +15,6 @@ class ProjectForm(forms.ModelForm):
 @login_required(login_url='/login/')
 def manage(request):
     if request.method == "POST" :
-	print request.POST
         pf = ProjectForm(request.POST)
         if pf.is_valid():
     	    name = pf.cleaned_data['name']
@@ -41,12 +40,12 @@ def manage(request):
 @login_required(login_url='/login/')
 def list(request):
     user = request.user
-    search = request.GET.get('search', 'NONE')
+    search = request.GET.get('search', '')
     record = request.GET.get('record', 10)
-    if search == "NONE":
-        project_list = Project.objects.order_by('name').all()
+    if search:
+        project_list = Project.objects.order_by('name').filter(name__contains=search)
     else:
-        project_list = Project.objects.order_by('name').filter(name__icontains=search)
+        project_list = Project.objects.order_by('name').all()
     paginator = Paginator(project_list, record)
     page_list = paginator.page_range
     page = request.GET.get('page')
@@ -57,7 +56,7 @@ def list(request):
     except EmptyPage:
         projects = paginator.page(paginator.num_pages)
 
-    return render_to_response('list_project.html', {"projects": projects, "page_list":page_list, "search":search}, context_instance=RequestContext(request))
+    return render_to_response('list_project.html', {"projects": projects, "page_list":page_list, "search":search, "record":record}, context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def search(request):
@@ -66,8 +65,8 @@ def search(request):
     return render_to_response('list_project.html', {'projects':projects}, context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
-def every(request, proname):
-    project = Project.objects.get(name=proname)
+def every(request, id):
+    project = Project.objects.get(id=id)
     devices = project.device.all()
     return render_to_response('info_project.html', {'project':project, 'devices':devices}, context_instance=RequestContext(request))
 
@@ -77,14 +76,22 @@ def delete(request):
     Project.objects.get(id=proid).delete()
     return HttpResponse(json.dumps("ok"))
 
-#@login_required(login_url='/login/')
-#def update(request):
-#    if request.method == "POST":
-#	id = request.POST.get('id','')
-#	name = request.POST.get('name','')
-#	status = request.POST.get('status','')
-#	web = request.POST.get('web','')
-#	document = request.POST.get('document','')
-#	device = request.POST.get('device','')
-#        for entry in pf.cleaned_data['device']:
-#            p.device.add(entry)
+@login_required(login_url='/login/')
+def update(request):
+    if request.method == "POST":
+	id = request.POST.get('id','')
+	name = request.POST.get('name','')
+	status = request.POST.get('status','')
+	web = request.POST.get('web','')
+	document = request.POST.get('document','')
+	devices = request.POST['devices']
+	Project.objects.filter(id=id).update(name=name, status=status, web=web, document=document)
+	p = Project.objects.get(id=id)
+	p.device.clear()
+	print request.POST
+	print request.POST.get('devices')
+        for entry in devices:
+            p.device.add(entry)
+        return HttpResponseRedirect('/project/list/' + id)
+    else:
+	return HttpResponseRedirect('/static/error/404.html') 

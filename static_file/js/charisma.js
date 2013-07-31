@@ -94,8 +94,14 @@ $(document).ready(function(){
 
 
 
-	//add select change
-	$("#DataTables_Table_0_length select").bind('change',function(){
+	//add select change of device
+	$("#Dev_record select").bind('change',function(){
+	    var curr_page_length = $(this).val();
+	    window.location.href = '/device/list/?record='+curr_page_length
+	});
+
+	//add select change of project
+	$("#Pro_record select").bind('change',function(){
 	    var curr_page_length = $(this).val();
 	    window.location.href = '/project/list/?record='+curr_page_length
 	});

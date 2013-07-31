@@ -9,10 +9,13 @@
         <div class="box-content">
 	    <div class="row-fluid">
 		<div class="span4">
-		    <div id="DataTables_Table_0_length" class="dataTables_length">
-			<label><select name="DataTables_Table_0_length" size="1" aria-controls="DataTables_Table_0">
-			    <option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option>
-			    <option value="100">100</option></select> records per page
+		    <div id="Dev_record" class="dataTables_length">
+			<label><select name="Dev_record" size="1" aria-controls="DataTables_Table_0">
+			    <option value="10" selected="selected">{{record}}</option>
+			    <option value="25">25</option>
+			    <option value="50">50</option>
+			    <option value="100">100</option>
+			    </select> records per page
 			</label>
 		    </div>
 		</div>
@@ -38,7 +41,7 @@
     	      <tbody>
 		{% for device in devices%}
     		<tr>
-    		    <td><a href="/device/list/{{device.nei_ip}}">{{device.nei_ip}}</a></td>
+    		    <td><a href="/device/list/{{device.id}}">{{device.nei_ip}}</a></td>
     		    <td class="center">{{device.wai_ip}}</td>
     		    <td class="center">{{device.hostname}}</td>
     		    <td class="center">
@@ -60,13 +63,13 @@
     	 <div class="pagination pagination-centered">
     	  <ul>
 	    {% if devices.has_previous %}
-    	    <li><a href="?search={{ search }}&page={{ devices.previous_page_number }}">Prev</a></li>
+    	    <li><a href="?search={{ search }}&page={{ devices.previous_page_number }}&record={{ record }}">Prev</a></li>
 	    {% endif %}
 	    {% for number in page_list%}
-    	    <li><a href="?search={{ search }}&page={{ number }}">{{ number }}</a></li>
+    	    <li><a href="?search={{ search }}&page={{ number }}&record={{record}}">{{ number }}</a></li>
 	    {% endfor %}
 	    {% if devices.has_next %}
-    	    <li><a href="?search={{ search }}&page={{ devices.next_page_number }}">Next</a></li>
+    	    <li><a href="?search={{ search }}&page={{ devices.next_page_number }}&record={{ record }}">Next</a></li>
 	    {% endif %}
     	  </ul>
     	</div>
